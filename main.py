@@ -1,16 +1,29 @@
-# This is a sample Python script.
+from colorama import init, Fore
+import rotinas as fun
+from time import sleep
+init()
 
-# Press F6 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+fun.bem_vindo()
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+while True:
+    resposta = fun.menu(['Ver Cadastros', 'Novo Cadastro', 'Sair'])
+    if resposta == 1:
+        cadastro = open('cadastros.txt', 'r')
+        fun.cabeçalho('Cadastros')
+        sleep(1)
+        print(cadastro.read())
+    elif resposta == 2:
+        cadastro = open('cadastros.txt', 'a')
+        fun.cabeçalho('Novo Cadastro')
+        nome = str(input('Nome: ')).strip()
+        telefone = fun.leiaInt('Telefone com DDD (sem símbolos): ')
+        info = f'{nome}\t\t\t{telefone}\n'
+        cadastro.write(info)
+        print(f'Novo registro de {nome} adicionado.')
+        sleep(0.5)
+    elif resposta == 3:
+        fun.cabeçalho('Saindo... Até logo!')
+        break
+    else:
+        print('\033[1;31mERRO: por favor, digite uma opção válida.\033[m')
+    sleep(2)
